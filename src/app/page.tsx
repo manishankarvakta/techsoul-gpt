@@ -1,19 +1,16 @@
-import { Input } from "@/components/ui/input";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { Separator } from "@/components/ui/separator";
-import {
-  ArrowUp,
-  CircleAlert,
-  LayoutDashboard,
-  Paperclip,
-  Triangle,
-} from "lucide-react";
+import { CircleAlert, LayoutDashboard, Triangle } from "lucide-react";
+import MassageInput from "./_components/MassageInput";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
+  const user = false;
+
   return (
-    <div className="h-screen grid grid-cols-[250px_1fr]">
+    <div className="h-screen grid grid-cols-[280px_1fr]">
       {/* Sidebar */}
       <aside className="bg-gray-100 p-4">
         <div className="text-gray-600 00 flex gap-2 items-center mt-2">
@@ -79,32 +76,30 @@ export default function Home() {
             <CircleAlert className="w-4 h-4" />
             Memory Full
           </div>
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+
+          {/* conditional user and authentication */}
+          {user ? (
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          ) : (
+            <div className="space-x-2">
+              <Button className="h-8 rounded-full">
+                <Link href="login">Log in</Link>
+              </Button>
+              <Button variant="outline" className="h-8 rounded-full">
+                <Link href="signup">Sign up</Link>
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* <div className="flex flex-col gap-4 "> */}
         {/* Cards Section */}
         <div className="flex-1 items-center justify-center"></div>
         {/* Input section */}
-        <div className="flex items-center flex-col justify-center">
-          <div className="flex w-[550px] items-center gap-2 bg-gray-100 px-2 py-1 rounded-full">
-            <Paperclip className="w-6 h-6 ms-2" />
-            <Input
-              type="text"
-              placeholder="Ask a question"
-              className="border-none bg-transparent focus:border-none focus-visible:ring-0 focus-visible:ring-offset-0 ring-0 focus:ring-0 focus:outline-none p-2 rounded-md"
-            />
-            <div className="flex bg-black cursor-pointer rounded-full text-white p-2 items-center justify-center">
-              <ArrowUp className="w-4 h-4" />
-            </div>
-          </div>
-          <p className="py-2 text-xs text-muted-foreground text-slate-500">
-            Ai can make mistake
-          </p>
-        </div>
+        <MassageInput />
       </main>
     </div>
   );
