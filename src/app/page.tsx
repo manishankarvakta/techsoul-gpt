@@ -3,10 +3,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { CircleAlert, LayoutDashboard, Triangle } from "lucide-react";
 import MassageInput from "./_components/MassageInput";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
+  const user = false;
+
   return (
-    <div className="h-screen grid grid-cols-[250px_1fr]">
+    <div className="h-screen grid grid-cols-[280px_1fr]">
       {/* Sidebar */}
       <aside className="bg-gray-100 p-4">
         <div className="text-gray-600 00 flex gap-2 items-center mt-2">
@@ -72,10 +76,23 @@ export default function Home() {
             <CircleAlert className="w-4 h-4" />
             Memory Full
           </div>
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+
+          {/* conditional user and authentication */}
+          {user ? (
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          ) : (
+            <div className="space-x-2">
+              <Button className="h-8 rounded-full">
+                <Link href="login">Log in</Link>
+              </Button>
+              <Button variant="outline" className="h-8 rounded-full">
+                <Link href="signup">Sign up</Link>
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* <div className="flex flex-col gap-4 "> */}

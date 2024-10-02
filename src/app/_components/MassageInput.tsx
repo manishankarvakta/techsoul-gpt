@@ -46,9 +46,9 @@ const MessageInput = () => {
   }, [messages, answers]);
 
   return (
-    <section className="flex flex-col items-center justify-center p-4 h-full w-full">
+    <section className="flex flex-col items-center justify-center h-full w-full">
       <div className="mb-6 w-full max-w-2xl h-[600px] rounded-lg">
-        <ScrollArea className="h-full p-4">
+        <ScrollArea className="h-full">
           <div className="flex flex-col gap-4">
             {messages.map((msg, idx) => (
               <div key={idx} className="flex flex-col">
@@ -66,9 +66,7 @@ const MessageInput = () => {
                 {/* Bot answer */}
                 <div className="flex justify-start py-2">
                   <div
-                    className={`p-3 rounded-3xl ${getMessageWidth(
-                      answers[idx]
-                    )}`}
+                    className={`rounded-3xl ${getMessageWidth(answers[idx])}`}
                   >
                     <Typewriter
                       onInit={(typewriter) => {
@@ -99,14 +97,14 @@ const MessageInput = () => {
       {/* Input area */}
       <form
         onSubmit={handleSubmit(handleSendMessage)}
-        className="flex items-center w-full max-w-2xl px-4"
+        className="flex items-center w-full max-w-2xl"
       >
         <div className="flex w-full items-center gap-2 bg-gray-100 rounded-full px-3 py-2 shadow-md">
           <Paperclip className="w-5 h-5 text-gray-500 cursor-pointer" />
           <Input
             type="text"
             placeholder="Type a message..."
-            className="border-none bg-transparent focus:ring-0 focus:outline-none p-2 rounded-md flex-grow text-sm"
+            className="border-none h-10 bg-transparent focus:ring-0 focus:outline-none focus:border-none p-2 rounded-md flex-grow text-sm"
             {...register("message", { required: true })}
           />
           <button
