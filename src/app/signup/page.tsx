@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import SocialLogIn from "../_components/SocialLogIn";
+import SocialLogIn from "../_components/authentication/SocialLogIn";
 
 type Inputs = {
   name: string;

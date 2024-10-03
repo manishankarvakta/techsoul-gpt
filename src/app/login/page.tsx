@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
-import SocialLogIn from "../_components/SocialLogIn";
+import SocialLogIn from "../_components/authentication/SocialLogIn";
 import { signIn } from "next-auth/react";
 
 type Inputs = {
@@ -29,7 +30,7 @@ const LogIn = () => {
   return (
     <div className="text-center h-screen flex justify-center items-center">
       <div className="max-w-sm p-6 shadow-md rounded-md hover:shadow-lg">
-        <h2 className="text-3xl font-semibold pb-6">Create an account</h2>
+        <h2 className="text-3xl font-semibold pb-6">Welcome back</h2>
         <form onSubmit={handleSubmit(handleSignIn)} className="space-y-3">
           <Input
             type="email"
@@ -47,7 +48,7 @@ const LogIn = () => {
         </form>
         <div className="my-4">
           <p className="text-sm">
-            Not have an account?{" "}
+            don't have an account?{" "}
             <Link href="signup" className="text-green-500 hover:text-green-600">
               Sign up
             </Link>

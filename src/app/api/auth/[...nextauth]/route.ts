@@ -18,15 +18,29 @@ export const authOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
+        email: { type: "email", placeholder: "Email address" },
+        password: { type: "password", placeholder: "Password" },
       },
-      //@ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       async authorize(credentials) {
-        // const { email, password } = credentials;
-
         console.log(credentials);
-        // console.log(email, password);
+
+        let user = null;
+
+        user = {
+          id: "01",
+          name: "John",
+          email: "john@gmail.com",
+          age: "21",
+        };
+
+        if (!user) {
+          console.log("invalid credential");
+          return null;
+        } else {
+          return user;
+        }
       },
     }),
   ],
