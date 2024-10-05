@@ -9,8 +9,6 @@ import links from "@/lib/links";
 const DesktopNav = () => {
   const pathname = usePathname();
 
-  console.log(pathname);
-
   return (
     <div className="container mx-auto flex items-center justify-between py-6">
       <Logo />
@@ -19,8 +17,8 @@ const DesktopNav = () => {
           <Link
             key={link.path}
             href={link.path}
-            className={`uppercase font-semibold hover:text-primary transition-all ${
-              link.path === pathname && "text-primary"
+            className={`uppercase font-semibold transition-all hover:border-b ${
+              link.path === pathname && "border-b-2"
             }`}
           >
             {link.label}

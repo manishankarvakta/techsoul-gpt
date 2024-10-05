@@ -2,8 +2,9 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaClient } from "@prisma/client";
 
-console.log(process.env.GOOGLE_CLIENT_SECRET);
+const prisma = new PrismaClient();
 
 export const authOptions = {
   providers: [
@@ -24,26 +25,23 @@ export const authOptions = {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       async authorize(credentials) {
-        console.log(credentials);
+        const { email, password } = credentials;
 
-        let user = null;
-
-        user = {
-          id: "01",
-          name: "John",
-          email: "john@gmail.com",
-          age: "21",
-        };
+        const user = await prisma.user.findUnique({
+          where: { email },
+        });
 
         if (!user) {
-          console.log("invalid credential");
-          return null;
-        } else {
-          return user;
+          throw new Error("Invalid email or password");
         }
+        return { id: user.id, name: user.name, email: user.email };
       },
     }),
   ],
+  pages: {
+    signIn: "/auth/login",
+    SignUp: "/auth/signup",
+  },
 };
 
 const handler = NextAuth(authOptions);

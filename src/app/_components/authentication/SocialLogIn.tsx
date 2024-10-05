@@ -6,11 +6,11 @@ import { FcGoogle } from "react-icons/fc";
 
 const SocialLogIn = () => {
   const handleGoogleSignIn = () => {
-    signIn("google", { callbackUrl: "/" });
+    signIn("google", { callbackUrl: "/chat" });
   };
 
   const handleGitHubSignIn = () => {
-    signIn("github", { callbackUrl: "/" });
+    signIn("github", { callbackUrl: "/chat" });
   };
 
   return (
