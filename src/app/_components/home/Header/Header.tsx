@@ -1,5 +1,5 @@
 import React from "react";
-import DesktopNav from "../Shared/DesktopNav";
+import DesktopNav from "../../Shared/DesktopNav";
 
 const Header = () => {
   return (

@@ -3,7 +3,7 @@ import { LayoutDashboard } from "lucide-react";
 
 import MessageInput from "../_components/MessageInput";
 import ChatNav from "../_components/ChatNav";
-import Logo from "../_components/home/Shared/Logo";
+import Logo from "../_components/Shared/Logo";
 
 const Chat = () => {
   return (

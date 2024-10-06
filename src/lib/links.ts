@@ -3,6 +3,10 @@ const links = [
     label: "home",
     path: "/",
   },
+  {
+    label: "about",
+    path: "/about",
+  },
   // {
   //   label: "API",
   //   path: "/api",
@@ -12,12 +16,8 @@ const links = [
     path: "/research",
   },
   {
-    label: "blog",
-    path: "/blog",
-  },
-  {
-    label: "about",
-    path: "/about",
+    label: "blogs",
+    path: "/blogs",
   },
 ];
 
