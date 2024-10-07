@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { ArrowUp, Paperclip, Triangle } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Typewriter from "typewriter-effect";
@@ -47,56 +46,58 @@ const MessageInput = () => {
   }, [messages, answers]);
 
   return (
-    <section className="flex flex-col items-center justify-between h-full w-full">
-      <ScrollArea className="h-[600px] max-w-2xl w-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
-        <div className="flex flex-col gap-4">
-          {messages.map((msg, idx) => (
-            <div key={idx} className="flex flex-col">
-              {/* User message */}
-              <div className="flex justify-end items-center gap-2">
-                <p
-                  className={`p-3 rounded-2xl bg-gray-100 shadow-md ${getMessageWidth(
-                    msg
-                  )}`}
-                >
-                  {msg}
-                </p>
-                <Avatar className="w-8 h-8">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </div>
+    <section className="h-full flex flex-col justify-between">
+      <div className="h-[600px] w-full overflow-y-auto flex justify-center">
+        <div className="max-w-2xl w-full">
+          <div className="flex flex-col gap-4">
+            {messages.map((msg, idx) => (
+              <div key={idx} className="flex flex-col">
+                {/* User message */}
+                <div className="flex justify-end items-center gap-2">
+                  <p
+                    className={`p-3 rounded-2xl bg-gray-100 shadow-md ${getMessageWidth(
+                      msg
+                    )}`}
+                  >
+                    {msg}
+                  </p>
+                  <Avatar className="w-8 h-8">
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </div>
 
-              {/* Bot answer */}
-              <div className="flex justify-start items-center py-2">
-                <div className="rounded-full border mr-2">
-                  <Triangle className="h-8 w-8 rotate-180 fill-black p-2" />
-                </div>
-                <div className={`${getMessageWidth(answers[idx])}`}>
-                  <Typewriter
-                    onInit={(typewriter) => {
-                      typewriter
-                        .changeDelay(1)
-                        .typeString(answers[idx])
-                        .pauseFor(2500)
-                        .callFunction(() => {
-                          const cursor = document.querySelector(
-                            ".Typewriter__cursor"
-                          ) as HTMLElement | null;
-                          if (cursor) {
-                            cursor.style.display = "none";
-                          }
-                        })
-                        .start();
-                    }}
-                  />
+                {/* Bot answer */}
+                <div className="flex justify-start items-center py-2">
+                  <div className="rounded-full border mr-2">
+                    <Triangle className="h-8 w-8 rotate-180 fill-black p-2" />
+                  </div>
+                  <div className={`${getMessageWidth(answers[idx])}`}>
+                    <Typewriter
+                      onInit={(typewriter) => {
+                        typewriter
+                          .changeDelay(1)
+                          .typeString(answers[idx])
+                          .pauseFor(2500)
+                          .callFunction(() => {
+                            const cursor = document.querySelector(
+                              ".Typewriter__cursor"
+                            ) as HTMLElement | null;
+                            if (cursor) {
+                              cursor.style.display = "none";
+                            }
+                          })
+                          .start();
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div ref={messageEndRef} />
         </div>
-        <div ref={messageEndRef} />
-      </ScrollArea>
+      </div>
 
       {/* Input area */}
       <div className="w-full flex flex-col justify-center items-center">

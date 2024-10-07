@@ -17,7 +17,7 @@ export default function Features() {
               key={idx}
               className="group transition-transform transform hover:scale-105"
             >
-              <div className="bg-white shadow-lg rounded-lg p-6 transition duration-300 group-hover:bg-black group-hover:text-white h-80 space-y-5">
+              <div className="bg-white shadow-lg rounded-lg p-6 transition duration-300 group-hover:bg-black group-hover:text-white space-y-5">
                 <div className="rounded-lg">
                   <Image
                     src={feature.icon}

@@ -7,13 +7,15 @@ const Logo = ({ chat }) => {
 
   return (
     <Link href="/" className="text-gray-600 flex gap-2 items-center">
-      <div className="flex justify-center items-center gap-2">
+      <div className="flex justify-center items-center gap-1">
         <Triangle
           className={`${
-            chat === "chat" && "h-4 w-4"
-          } h-8 w-8 rotate-180 fill-black bg-white p-[5px] rounded-md`}
+            chat === "chat"
+              ? "h-6 w-6 p-[3px] border rounded-full"
+              : "rounded-md h-7 w-7 bg-white"
+          } rotate-180 fill-black  p-[5px] `}
         />
-        <h1 className="text-xl font-bold">
+        <h1 className={`${chat === "chat" ? "text-md" : "text-xl font-bold"} `}>
           TechSoul <span className="text-primary">AI</span>
         </h1>
       </div>
