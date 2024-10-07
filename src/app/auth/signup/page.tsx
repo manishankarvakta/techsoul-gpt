@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import SocialLogIn from "../_components/SocialLogIn";
+import SocialLogIn from "../../_components/authentication/SocialLogIn";
 
 type Inputs = {
   name: string;
@@ -22,14 +22,15 @@ const SignUp = () => {
     console.log(data);
 
     try {
-      const res = await fetch("/api/reg", {
+      const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-      console.log(res);
+      const result = await res.json();
+      console.log(result);
 
       if (res.ok) {
         reset();
@@ -45,15 +46,11 @@ const SignUp = () => {
       <div className="max-w-sm p-6 shadow-md rounded-md hover:shadow-lg">
         <h2 className="text-3xl font-semibold pb-6">Create an account</h2>
         <form onSubmit={handleSubmit(handleSignIn)} className="space-y-3">
-          <Input
-            type="text"
-            placeholder="Name *"
-            {...register("name", { required: true })}
-          />
+          <Input type="text" placeholder="Name *" {...register("name")} />
           <Input
             type="email"
             placeholder="Email address *"
-            {...register("email", { required: true })}
+            {...register("email")}
           />
           <Input
             type="string"
@@ -63,7 +60,7 @@ const SignUp = () => {
           <Input
             type="password"
             placeholder="Password *"
-            {...register("password", { required: true })}
+            {...register("password")}
           />
           <Button type="submit" className="w-full bg-green-600">
             Sign in
