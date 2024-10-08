@@ -29,13 +29,13 @@ const MessageInput = () => {
     reset();
   };
 
-  const getMessageWidth = (message: string) => {
-    const length = message.length;
-    if (length < 20) return "w-auto max-w-xs";
-    if (length < 50) return "w-auto max-w-md";
-    if (length < 100) return "w-auto max-w-lg";
-    return "w-full";
-  };
+  // const getMessageWidth = (message: string) => {
+  //   const length = message.length;
+  //   if (length < 20) return "w-auto max-w-xs";
+  //   if (length < 50) return "w-auto max-w-md";
+  //   if (length < 100) return "w-auto max-w-lg";
+  //   return "w-full";
+  // };
 
   const messageEndRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +47,7 @@ const MessageInput = () => {
 
   return (
     <section className="h-full flex flex-col justify-between">
-      <div className="h-[600px] w-full overflow-y-auto flex justify-center">
+      <div className="h-[500px] w-full overflow-y-auto flex justify-center">
         <div className="max-w-2xl w-full">
           <div className="flex flex-col gap-4">
             {messages.map((msg, idx) => (
@@ -55,9 +55,7 @@ const MessageInput = () => {
                 {/* User message */}
                 <div className="flex justify-end items-center gap-2">
                   <p
-                    className={`p-3 rounded-2xl bg-gray-100 shadow-md ${getMessageWidth(
-                      msg
-                    )}`}
+                    className={`p-3 rounded-md min-w-12 bg-gray-100 shadow-sm text-sm`}
                   >
                     {msg}
                   </p>
@@ -72,7 +70,7 @@ const MessageInput = () => {
                   <div className="rounded-full border mr-2">
                     <Triangle className="h-8 w-8 rotate-180 fill-black p-2" />
                   </div>
-                  <div className={`${getMessageWidth(answers[idx])}`}>
+                  <div className={``}>
                     <Typewriter
                       onInit={(typewriter) => {
                         typewriter
@@ -81,7 +79,7 @@ const MessageInput = () => {
                           .pauseFor(2500)
                           .callFunction(() => {
                             const cursor = document.querySelector(
-                              ".Typewriter__cursor"
+                              ".Typewriter__cursor",
                             ) as HTMLElement | null;
                             if (cursor) {
                               cursor.style.display = "none";
@@ -105,17 +103,12 @@ const MessageInput = () => {
           onSubmit={handleSubmit(handleSendMessage)}
           className="flex items-center w-full max-w-2xl"
         >
-          <div className="flex w-full items-center gap-2 bg-gray-100 rounded-full px-3 py-2 shadow-md">
+          <div className="flex w-full items-center gap-2 bg-gray-50 rounded-full px-4 py-2 shadow-md">
             <Paperclip className="w-5 h-5 text-gray-500 cursor-pointer" />
             <Input
               type="text"
               placeholder="Type a message..."
-              className="border-none h-10 bg-transparent 
-                 focus:ring-0 focus:outline-none 
-                 focus-visible:outline-none 
-                 focus-visible:ring-0 
-                 p-2 rounded-md flex-grow text-sm 
-                 appearance-none"
+              className="border-none h-8 bg-none  focus-visible:outline-none focus-visible:ring-0  py-2 px-4 shadow-none rounded-md flex-grow text-sm focuse-visable:border-none"
               {...register("message", { required: true })}
             />
             <button
