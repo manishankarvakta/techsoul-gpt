@@ -1,16 +1,16 @@
 import featuresData from "@/lib/featuresData";
 import Image from "next/image";
+import SectionTitle from "../Shared/SectionTitle";
 
 export default function Features() {
   return (
     <section className="pb-32">
       <div className="container mx-auto px-6 lg:px-0">
-        <h2 className="text-3xl font-extrabold text-center text-gray-800">
-          Key Features
-        </h2>
-        <p className="text-center text-gray-600">
-          Discover the powerful AI features designed to enhance your business.
-        </p>
+        <SectionTitle
+          title=" Key Features"
+          subTitle="Discover the powerful AI features designed to enhance your business."
+        />
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 hover:cursor-pointer">
           {featuresData.map((feature, idx) => (
             <div

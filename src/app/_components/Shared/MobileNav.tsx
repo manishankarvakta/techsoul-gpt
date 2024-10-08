@@ -17,7 +17,7 @@ const MobileNav = () => {
 
   return (
     <Sheet>
-      <SheetTrigger asChild>
+      <SheetTrigger asChild className="cursor-pointer">
         <FiAlignRight size={22} />
       </SheetTrigger>
       <SheetContent>
