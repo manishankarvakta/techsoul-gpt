@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Bot, CopyIcon } from "lucide-react";
 import React, { useEffect, useRef } from "react";
@@ -19,10 +20,11 @@ const ChatArea = ({
   messages: MessageProps[];
   loading: boolean;
 }) => {
-  const copyToClipboard = (code) => {
+  const copyToClipboard = (code: string) => {
     navigator.clipboard
       .writeText(code)
       .then(() => {
+        // You can replace this with a state-managed UI message if preferred
         alert("Code copied to clipboard!");
       })
       .catch((err) => {
@@ -31,33 +33,32 @@ const ChatArea = ({
   };
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages, loading]);
+
   return (
     <div className="flex justify-center h-screen overflow-y-auto py-6">
       <div className="md:w-[60%] w-full flex flex-col space-y-6">
         {messages.map((msg) => (
           <div
-            key={msg?.id}
-            className={`flex ${
-              msg?.role === "user" ? "justify-end" : "justify-start"
-            }`}
+            key={msg.id}
+            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`p-3 text-slate-600 rounded-lg ${
-                msg?.role === "user" ? "bg-gray-100 max-w-[70%]" : " w-full"
-              } relative`}
+              className={`p-3 text-slate-600 rounded-lg ${msg.role === "user" ? "bg-gray-100 max-w-[70%]" : "w-full"} relative`}
             >
-              {msg?.role === "assistant" && (
+              {msg.role === "assistant" && (
                 <div className="absolute left-[-30px] border p-1 bg-black rounded-full">
                   <Bot className="h-5 w-5 text-white" /> {/* Bot icon */}
                 </div>
               )}
               <ReactMarkdown
                 components={{
+                  //@ts-ignore
                   code({ node, inline, className, children, ...props }) {
                     const match = /language-(\w+)/.exec(className || "");
                     const codeString = String(children).replace(/\n$/, "");
@@ -68,6 +69,7 @@ const ChatArea = ({
                           className="flex gap-2 text-sm"
                           onClick={() => copyToClipboard(codeString)}
                           size="sm"
+                          aria-label="Copy code to clipboard"
                           style={{
                             position: "absolute",
                             right: "10px",
@@ -78,6 +80,7 @@ const ChatArea = ({
                           <CopyIcon className="h-4 w-4" /> Copy
                         </Button>
                         <SyntaxHighlighter
+                          //@ts-ignore
                           style={solarizedlight}
                           language={match[1]}
                           PreTag="div"
@@ -86,7 +89,7 @@ const ChatArea = ({
                             width: "100%",
                             borderRadius: "8px",
                             padding: "10px",
-                          }} // Set width to 100%
+                          }}
                           {...props}
                         >
                           {codeString}
@@ -100,22 +103,17 @@ const ChatArea = ({
                   },
                 }}
               >
-                {msg?.message}
+                {msg.message}
               </ReactMarkdown>
             </div>
           </div>
         ))}
         {loading && (
-          <div className={`flex "justify-start"`}>
-            <div
-              className={`p-3 text-slate-600 rounded-lg md:max-w-[70%] w-full relative`}
-            >
-              {/* {msg.role === "assistant" && ( */}
+          <div className="flex justify-start">
+            <div className="p-3 text-slate-600 rounded-lg md:max-w-[70%] w-full relative">
               <div className="absolute left-[-30px] border p-1 bg-black rounded-full">
                 <Bot className="h-5 w-5 text-white" /> {/* Bot icon */}
               </div>
-              {/* )} */}
-              {/* {msg.message} */}
               Thinking ...
             </div>
           </div>
