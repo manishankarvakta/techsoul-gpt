@@ -6,6 +6,14 @@
 
 // const prisma = new PrismaClient();
 
+
+function route() {
+  return (
+    null
+  )
+}
+
+export default route
 // export const authOptions = {
 //   providers: [
 //     GoogleProvider({
