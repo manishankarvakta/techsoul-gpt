@@ -1,5 +1,5 @@
 import React from "react";
-import SectionTitle from "../_components/Shared/SectionTitle";
+import SectionTitle from "../../_components/Shared/SectionTitle";
 
 const Blogs = () => {
   return (

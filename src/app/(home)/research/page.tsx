@@ -1,4 +1,4 @@
-import SectionTitle from "../_components/Shared/SectionTitle";
+import SectionTitle from "../../_components/Shared/SectionTitle";
 
 export default function Research() {
   return (
