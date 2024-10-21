@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const authOptions:NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -22,17 +22,14 @@ export const authOptions:NextAuthOptions = {
         email: { type: "email", placeholder: "Email address" },
         password: { type: "password", placeholder: "Password" },
       },
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       async authorize(credentials) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        const { email, password } = credentials;
+        const { email, password } = credentials || {}; // Handle potential undefined case
 
         const user = await prisma.user.findUnique({
           where: { email },
         });
 
-        if (!user) {
+        if (!user || password !== "yourExpectedPassword") { // Replace with actual password verification
           throw new Error("Invalid email or password");
         }
         return { id: user.id, name: user.name, email: user.email };
@@ -44,6 +41,6 @@ export const authOptions:NextAuthOptions = {
   },
 };
 
+// Export the NextAuth handler for GET and POST requests
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };
