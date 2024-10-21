@@ -14,7 +14,7 @@ interface MessageProps {
 }
 
 const MainContent = () => {
-  const ollama = new Ollama({ host: "http://127.0.0.1:11434" });
+  const ollama = new Ollama({ host: "https://ollama.tcm-bd.com" });
   const [messages, setMessages] = useState<MessageProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -40,7 +40,7 @@ const MainContent = () => {
 
     // Send the message to the local ollama model
     const response = await ollama.chat({
-      model: "llama3.2",
+      model: "llama3.2:1b",
       messages: [{ role: "user", content: message }],
     });
 
