@@ -5,7 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 // import { ScrollArea } from "@/components/ui/scroll-area";
 import { CircleAlert } from "lucide-react";
 import React, { useState } from "react";
-import { Ollama } from "ollama";
 
 interface MessageProps {
   id: number;
@@ -14,7 +13,6 @@ interface MessageProps {
 }
 
 const MainContent = () => {
-  const ollama = new Ollama({ host: "https://ollama.tcm-bd.com" });
   const [messages, setMessages] = useState<MessageProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -25,39 +23,43 @@ const MainContent = () => {
 
   const handleSendMessage = async (message: string) => {
     setLoading(true);
-
-    // Create message data for the user's message
+  
     const userMessageData = {
-      id: messages.length + 1, // Use messages.length to set a unique ID
+      id: messages.length + 1,
       message: message,
       role: "user",
     };
-
-    // Update the messages state with the user's message first
+  
     const updatedMessages = [...messages, userMessageData];
     setMessages(updatedMessages);
-    console.log("Message sent:", message);
-
-    // Send the message to the local ollama model
-    const response = await ollama.chat({
-      model: "llama3.2:1b",
-      messages: [{ role: "user", content: message }],
-    });
-
-    // Check if the response is complete
-    if (response.done) {
+  
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await response.json();
+  
       const assistantMessageData = {
-        id: updatedMessages.length + 1, // Use updatedMessages.length for the assistant's message ID
-        message: response.message.content,
+        id: updatedMessages.length + 1,
+        message: data.message,
         role: "assistant",
       };
-
-      console.log(assistantMessageData);
-      // Add the assistant's message to the state
+  
       setMessages((prevMessages) => [...prevMessages, assistantMessageData]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
